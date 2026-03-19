@@ -1,0 +1,36 @@
+export const theme = {
+  colors: {
+    background: '#000000',
+    surface: '#0d0d0d',
+    surfaceAlt: '#111111',
+    border: 'rgba(201,168,76,0.2)',
+    borderBright: 'rgba(201,168,76,0.5)',
+    text: '#f5f0e8',
+    textMuted: '#888880',
+    textDim: '#bbb8b0',
+    gold: '#c9a84c',
+    goldBright: '#e8c96a',
+    goldDim: 'rgba(201,168,76,0.4)',
+    success: '#4ade80',
+    error: '#f87171',
+    white: '#ffffff',
+  },
+  fonts: {
+    serif: 'Georgia',
+    sans: 'System',
+  },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+    xxl: 48,
+  },
+  radius: {
+    sm: 8,
+    md: 14,
+    lg: 20,
+    full: 999,
+  },
+}
