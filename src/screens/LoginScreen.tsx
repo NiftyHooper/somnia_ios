@@ -21,10 +21,9 @@ export default function LoginScreen() {
     iosClientId:
       '630276750066-opja2v4tidkoj8revde1ku7qor14k676.apps.googleusercontent.com',
     webClientId:
-      '839140138509-3spkgvvba8801btdv1ogcjm062jgaici.apps.googleusercontent.com',
+      '630276750066-ekijhujh4h3t32kdvbirpupb076bodk2.apps.googleusercontent.com',
     redirectUri: makeRedirectUri({
-      scheme: 'com.googleusercontent.apps.630276750066-opja2v4tidkoj8revde1ku7qor14k676',
-      path: 'oauth2redirect',
+      useProxy: true,
     }),
   })
 
