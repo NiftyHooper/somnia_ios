@@ -5,49 +5,44 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native'
-import { useStore } from '../store'
+import { useEffect } from 'react'
 import { supabase } from '../lib/supabase'
+import * as Google from 'expo-auth-session/providers/google'
 import * as WebBrowser from 'expo-web-browser'
-import { makeRedirectUri } from 'expo-auth-session'
 import { theme } from '../theme'
 
 WebBrowser.maybeCompleteAuthSession()
 
 export default function LoginScreen() {
-  const { setUser } = useStore()
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId:
+      '839140138509-3spkgvvba8801btdv1ogcjm062jgaici.apps.googleusercontent.com',
+    iosClientId:
+      '839140138509-3spkgvvba8801btdv1ogcjm062jgaici.apps.googleusercontent.com',
+    webClientId:
+      '839140138509-3spkgvvba8801btdv1ogcjm062jgaici.apps.googleusercontent.com',
+  })
 
-  const signInWithGoogle = async () => {
-    try {
-      const redirectUri = makeRedirectUri({
-        scheme: 'me.somniavault.app',
-      })
-
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: redirectUri,
-          skipBrowserRedirect: true,
-        },
-      })
-
-      if (error) throw error
-
-      const result = await WebBrowser.openAuthSessionAsync(data.url, redirectUri)
-
-      if (result.type === 'success') {
-        const { url } = result
-        await supabase.auth.exchangeCodeForSession(
-          url.split('code=')[1]?.split('&')[0]
-        )
-        const { data: userData } = await supabase.auth.getUser()
-        if (userData.user) {
-          setUser(userData.user)
-        }
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { authentication } = response
+      if (authentication?.accessToken) {
+        // Sign in to Supabase with Google token
+        supabase.auth
+          .signInWithIdToken({
+            provider: 'google',
+            token: authentication.idToken ?? '',
+            access_token: authentication.accessToken,
+          })
+          .then(({ error }) => {
+            if (error) {
+              Alert.alert('Sign in failed', error.message)
+            }
+            // Auth state change in App.tsx handles redirect
+          })
       }
-    } catch (err: any) {
-      Alert.alert('Sign in failed', err.message)
     }
-  }
+  }, [response])
 
   return (
     <View style={styles.container}>
@@ -66,7 +61,8 @@ export default function LoginScreen() {
 
         <TouchableOpacity
           style={styles.googleBtn}
-          onPress={signInWithGoogle}
+          onPress={() => promptAsync()}
+          disabled={!request}
           activeOpacity={0.8}
         >
           <Text style={styles.googleBtnText}>Continue with Google</Text>
