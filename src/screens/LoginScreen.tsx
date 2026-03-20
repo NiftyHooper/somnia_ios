@@ -18,7 +18,7 @@ export default function LoginScreen() {
     androidClientId:
       '839140138509-3spkgvvba8801btdv1ogcjm062jgaici.apps.googleusercontent.com',
     iosClientId:
-      '839140138509-3spkgvvba8801btdv1ogcjm062jgaici.apps.googleusercontent.com',
+      '630276750066-opja2v4tidkoj8revde1ku7qor14k676.apps.googleusercontent.com',
     webClientId:
       '839140138509-3spkgvvba8801btdv1ogcjm062jgaici.apps.googleusercontent.com',
   })
