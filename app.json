@@ -18,6 +18,13 @@
         "UIBackgroundModes": [
           "fetch",
           "remote-notification"
+        ],
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.630276750066-opja2v4tidkoj8revde1ku7qor14k676"
+            ]
+          }
         ]
       }
     },

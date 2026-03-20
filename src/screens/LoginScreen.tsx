@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import * as Google from 'expo-auth-session/providers/google'
 import * as WebBrowser from 'expo-web-browser'
+import { makeRedirectUri } from 'expo-auth-session'
 import { theme } from '../theme'
 
 WebBrowser.maybeCompleteAuthSession()
@@ -21,6 +22,10 @@ export default function LoginScreen() {
       '630276750066-opja2v4tidkoj8revde1ku7qor14k676.apps.googleusercontent.com',
     webClientId:
       '839140138509-3spkgvvba8801btdv1ogcjm062jgaici.apps.googleusercontent.com',
+    redirectUri: makeRedirectUri({
+      scheme: 'com.googleusercontent.apps.630276750066-opja2v4tidkoj8revde1ku7qor14k676',
+      path: 'oauth2redirect',
+    }),
   })
 
   useEffect(() => {
